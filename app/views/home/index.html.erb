@@ -1,4 +1,22 @@
-<h1>User Home Page</h1>
+<h1>Hangman Home Page</h1>
+
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+</style>
 
 <!-- Check if user has logged in ? -->
 <% if signed_in? %>
@@ -13,6 +31,35 @@
 
 <!-- Link to new game -->
 <%= link_to  "New Game", controller: "seshes", action: "new" %>
+
+
+</br>
+<h2>Recent games</h2>
+<div class="sessions">
+  <table style="width:100%">
+    <tr>
+      <th>Game id</th>
+      <th>Word</th>
+      <th>Difficulty</th>
+      <th>Chances</th>
+      <th>Navigation</th>
+    </tr>
+
+  <% @games.each do |game| %>
+    <tr>
+      <th><%= game.id %></th>
+      <th><%= game.pinpoint %></th>
+      <th><%= render_difficulty(game) %></th>
+      <th><%= game.chances %></th>
+      <th>
+        <li><%= finished?(game) %></li>
+      </th>
+    </tr>
+
+  <% end %>
+  </table>
+</div>
+
 
 <div id="flash">
 <% flash.each do |key, value| %>

@@ -69,8 +69,9 @@ module GameHelper
             src = "hg8.png"
         end
         
-        return image_tag(src)
+        return image_tag(src, size: "120x120")
     end
+
 
 
 end

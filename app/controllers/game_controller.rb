@@ -4,10 +4,16 @@ include GameHelper
 class GameController < ApplicationController
     before_action :require_login
 
+    def new
+    
+        @hangman = Hangman.new($game.id,$session.id)
+        redirect_to game_path(@hangman.game)
+    end
+
     def show
         @alphabet = "A"
-        @hangman = Hangman.new($game.id,$session.id)
-        # byebug
+        @game = Game.find_by(id:params[:id])
+        @hangman = Hangman.new(@game.id,@game.id)
         @ready_to_play = finished?
     end
 

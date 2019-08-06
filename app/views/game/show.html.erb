@@ -67,6 +67,9 @@
 </head>
 <header>
     <h1>Hangman</h1>
+    <div style="float: left">
+        <%= link_to "Back", root_path %>
+    </div>
 </header>
 
 </br>
@@ -84,6 +87,9 @@
 
         <h2>Type :</h2>
         <p style="color:red"><%= @hangman.data.data_type %></p>
+
+        <h2>Difficulty :</h2>
+        <p style="color:red"><%= render_difficulty(@hangman.game) %></p>
 
         <h3>Chances Left :</h3>
         <p style="color:red"><%= @hangman.game.chances %></p>
