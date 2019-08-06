@@ -2,14 +2,15 @@ require './app/classes/hangman'
 include GameHelper
 
 class GameController < ApplicationController
+    before_action :require_login
 
-
-    def index
+    def show
         @alphabet = "A"
-        @game = $game
-        @session = $session
         @hangman = Hangman.new($game.id,$session.id)
+        # byebug
+        @ready_to_play = finished?
     end
+
 
     def edit
 
@@ -19,7 +20,7 @@ class GameController < ApplicationController
         @game.guesses << params[:value]
         check_entry(@game,@data.data,params[:value])
         @game.save
-        redirect_to game_index_path
+        redirect_to game_path(@game)
     end
 
     def update

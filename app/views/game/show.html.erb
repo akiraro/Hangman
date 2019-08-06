@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Create four equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 25%;
+        padding: 10px;
+        height: 300px;
+        /* Should be removed. Only for demonstration */
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* Responsive layout - makes the four columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+        .column {
+            width: 100%;
+        }
+    }
+
+    .box {
+        width: 100%;
+        height: 100%;
+        border: 1px solid red;
+    }
+
+    .box p {
+        font-size: 50px;
+        color: red;
+        padding: 0;
+        margin: 0;
+    }
+
+    .flex-container {
+        display: flex;
+        flex-wrap: nowrap;
+        background-color:darkred;
+      }
+      
+      .flex-container > div {
+        background-color: #f1f1f1;
+        width: 100px;
+        margin: 10px;
+        text-align: center;
+        line-height: 75px;
+        font-size: 30px;
+      }
+    
+
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman !</title>
+</head>
+<header>
+    <h1>Hangman</h1>
+</header>
+
+</br>
+<%= render_image %>
+<body style="text-align: center" >
+    <div>
+    
+        <h2>Word</h2>
+
+        <div class="flex-container">
+            <% for num in 0...@hangman.game.pinpoint.length %>
+                <div><%= @hangman.game.pinpoint[num] %></div>
+            <% end %>
+        </div>
+
+        <h2>Type :</h2>
+        <p style="color:red"><%= @hangman.data.data_type %></p>
+
+        <h3>Chances Left :</h3>
+        <p style="color:red"><%= @hangman.game.chances %></p>
+
+        <h3>Misses :</h3>
+        <p style="color:red"><%= @hangman.game.guesses %></p>
+    
+
+        <% if @ready_to_play == true %>
+        <h3>Guess Keyboard: </h3>
+        <div class="row">
+            <div class="column">
+                <% 7.times do %>
+                <%= button_to @alphabet, edit_game_path(@hangman.game), method: :get, params: { value: @alphabet.downcase}, disabled: disabledButton?(@alphabet.downcase,@hangman.game.guesses) %>
+                <% @alphabet.next! %>
+                <% end %>
+            </div>
+            <div class="column">
+                <% 7.times do %>
+                <%= button_to @alphabet, edit_game_path(@hangman.game), method: :get, params: { value: @alphabet.downcase}, disabled: disabledButton?(@alphabet.downcase,@hangman.game.guesses) %>
+                <% @alphabet.next! %>
+                <% end %>
+            </div>
+            <div class="column">
+                    <% 7.times do %>
+                    <%= button_to @alphabet, edit_game_path(@hangman.game), method: :get, params: { value: @alphabet.downcase}, disabled: disabledButton?(@alphabet.downcase,@hangman.game.guesses) %>
+                    <% @alphabet.next! %>
+                    <% end %>
+            </div>
+            <div class="column">
+                    <% 5.times do %>
+                    <%= button_to @alphabet, edit_game_path(@hangman.game), method: :get, params: { value: @alphabet.downcase}, disabled: disabledButton?(@alphabet.downcase,@hangman.game.guesses) %>
+                    <% @alphabet.next! %>
+                    <% end %>
+            </div>
+          </div>
+
+        <% else %>
+        <div style="text-align:center">
+            <h2>Game ended !</h2>
+            <%= link_to "Back", root_path %>
+        </div>
+
+        <% end %>
+        
+
+    </div>
+</body>
+
+
+</html>

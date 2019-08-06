@@ -21,7 +21,8 @@ class SeshesController < ApplicationController
         $session.status = "ongoing"
         $session.save
 
-        redirect_to controller: "game"
+        redirect_to game_path($game)
+        # redirect_to controller: "game"
     end
 
     private
