@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ses_id: 1
+  diff_id: 1
+  data_id: 1
+  guesses: MyString
+  chances: 1
+
+two:
+  ses_id: 1
+  diff_id: 1
+  data_id: 1
+  guesses: MyString
+  chances: 1

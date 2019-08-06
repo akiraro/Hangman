@@ -12,6 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'mysql2' # Mysql gem
 gem 'clearance' # User login/authentication gem
+gem 'faker' # Fake data generator
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do

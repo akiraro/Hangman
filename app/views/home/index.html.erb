@@ -1,15 +1,18 @@
 <h1>User Home Page</h1>
 
+<!-- Check if user has logged in ? -->
 <% if signed_in? %>
     Signed in as: <%= current_user.email %>
     <%= button_to 'Sign out', sign_out_path, method: :delete %>
 <% else %>
-
 <script type="text/javascript">
     alert("Please login before proceed :)")
     window.location.href="/sign_in"  // put your correct path in a string here
 </script>
 <% end %>
+
+<!-- Link to new game -->
+<%= link_to  "New Game", controller: "seshes", action: "new" %>
 
 <div id="flash">
 <% flash.each do |key, value| %>
