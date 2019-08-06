@@ -1,3 +1,40 @@
-<h1>Hangman !</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman !</title>
+</head>
+<header>
+    <h1>Hangman</h1>
+</header>
+
+</br>
+<body>
+    <div>
+        <h2>PinPoint</h2>
+        <%= @hangman.game.pinpoint %>
+
+        <h3>Chances</h3>
+        <h4><%= @hangman.game.chances %></h4>
+
+        <h3>Misses</h3>
+        <h4><%= @hangman.game.guesses %></h4>
+    
+        <h3>Guess Keyboard: </h3>
+        <% 26.times do %>
+        <%= button_to @alphabet, edit_game_path(@hangman.game), method: :get, params: { value: @alphabet.downcase}, disabled: disabledButton?(@alphabet.downcase,@hangman.game.guesses) %>
+        <% @alphabet.next! %>
+        <% end %>
+
+
+        
+
+    </div>
+</body>
+
+
+</html>
 
 <% console %>
