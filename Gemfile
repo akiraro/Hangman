@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.3.7'
+ruby '2.3.3'
 
 gem 'rails', '~> 5.2.3'
 gem 'puma', '~> 3.11'
@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'mysql2' # Mysql gem
 gem 'clearance' # User login/authentication gem
 gem 'faker' # Fake data generator
+gem 'bootstrap-sass' # boostrap gem
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do

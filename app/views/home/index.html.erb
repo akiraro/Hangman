@@ -1,4 +1,76 @@
-<h1>Hangman Home Page</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+  </head>
+
+  <body>
+    <header class="container">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <%= link_to "New Game", new_sesh_path, class: "navbar-brand" %>
+          </div>
+
+          <ul class="nav navbar-nav navbar-right">
+            <!-- Check if user has logged in ? -->
+            <% if signed_in? %>
+              <li><%= link_to 'Sign out', sign_out_path, method: :delete %></li>
+            <% else %>
+              <script type="text/javascript">
+                alert("Please login before proceed :)")
+                window.location.href = "/sign_in"  // put your correct path in a string here
+              </script>
+            <% end %>
+          </ul>
+
+        </div>
+      </nav>
+    </header>
+
+    <% if signed_in? %>
+    Signed in as: <%= current_user.email %>
+    <%end%>
+
+    <h2>Recent games</h2>
+    <div class="sessions">
+      <table style="width:100%">
+        <tr>
+          <th>Game id</th>
+          <th>Word</th>
+          <th>Difficulty</th>
+          <th>Chances</th>
+          <th>Navigation</th>
+        </tr>
+
+      <% @games.each do |game| %>
+        <tr>
+          <th><%= game.id %></th>
+          <th><%= game.pinpoint %></th>
+          <th><%= render_difficulty(game) %></th>
+          <th><%= game.chances %></th>
+          <th>
+            <li><%= finished?(game) %></li>
+          </th>
+        </tr>
+
+      <% end %>
+      </table>
+    </div>
+
+    <div id="flash">
+      <% flash.each do |key, value| %>
+        <div class="flash <%= key %>"><%= value %></div>
+      <% end %>
+    </div>  
+
+  </body>
+</html>
+
 
 <style>
     table {
@@ -18,51 +90,8 @@
     }
 </style>
 
-<!-- Check if user has logged in ? -->
-<% if signed_in? %>
-    Signed in as: <%= current_user.email %>
-    <%= button_to 'Sign out', sign_out_path, method: :delete %>
-<% else %>
-<script type="text/javascript">
-    alert("Please login before proceed :)")
-    window.location.href="/sign_in"  // put your correct path in a string here
-</script>
-<% end %>
-
-<!-- Link to new game -->
-<%= link_to  "New Game", controller: "seshes", action: "new" %>
 
 
-</br>
-<h2>Recent games</h2>
-<div class="sessions">
-  <table style="width:100%">
-    <tr>
-      <th>Game id</th>
-      <th>Word</th>
-      <th>Difficulty</th>
-      <th>Chances</th>
-      <th>Navigation</th>
-    </tr>
-
-  <% @games.each do |game| %>
-    <tr>
-      <th><%= game.id %></th>
-      <th><%= game.pinpoint %></th>
-      <th><%= render_difficulty(game) %></th>
-      <th><%= game.chances %></th>
-      <th>
-        <li><%= finished?(game) %></li>
-      </th>
-    </tr>
-
-  <% end %>
-  </table>
-</div>
 
 
-<div id="flash">
-<% flash.each do |key, value| %>
-  <div class="flash <%= key %>"><%= value %></div>
-<% end %>
-</div>  
+
