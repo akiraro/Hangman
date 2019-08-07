@@ -21,7 +21,7 @@ class GameController < ApplicationController
     def edit
 
         @game = Game.find_by(id:params[:id])
-        @data = Datum.find_by(id:@game.data_id)
+        @data = Store.find_by(id:@game.data_id)
         puts @data.data
         @game.guesses << params[:value]
         check_entry(@game,@data.data,params[:value])

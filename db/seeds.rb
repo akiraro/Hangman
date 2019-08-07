@@ -17,5 +17,5 @@ exit unless Rails.env.development?
         diff_id = 3
     end
 
-    Datum.create(diff_id:diff_id,data:title,data_type:'Greek Philosophers')
+    Store.create(diff_id:diff_id,data:title,data_type:'Greek Philosophers')
 end

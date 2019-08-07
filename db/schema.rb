@@ -10,15 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_06_052227) do
-
-  create_table "data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "diff_id"
-    t.string "data"
-    t.string "data_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2019_08_07_063309) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "diff_id"
@@ -35,6 +27,14 @@ ActiveRecord::Schema.define(version: 2019_08_06_052227) do
     t.integer "game_id"
     t.string "status"
     t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stores", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "diff_id"
+    t.string "data"
+    t.string "data_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

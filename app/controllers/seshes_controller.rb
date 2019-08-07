@@ -8,7 +8,7 @@ class SeshesController < ApplicationController
 
     def create
 
-        $data = Datum.where(diff_id:params[:sesh][:diff_id])
+        $data = Store.where(diff_id:params[:sesh][:diff_id])
         randNum = rand(1...$data.length)
         $data = $data[randNum]
         @pin_point = pinpoint_generator($data.data.dup) #Issue when fetching data and there is no data available
