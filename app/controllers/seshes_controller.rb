@@ -1,5 +1,8 @@
 class SeshesController < ApplicationController
-    before_action :require_login
+    before_action :require_login, only: [:new, :create]
+    before_action :authenticate_via_token, only: [:rncreate]
+    skip_before_action :verify_authenticity_token
+    
 
     def new
         @session = current_user.seshes.new
@@ -22,6 +25,24 @@ class SeshesController < ApplicationController
         $session.save
     
         redirect_to new_game_path($game)
+    end
+
+
+    def rncreate
+
+        @data = Store.where(diff_id:params[:diff_id])
+        randNum = rand(1...@data.length)
+        @data = @data[randNum]
+        @pin_point = pinpoint_generator(@data.data.dup) #Issue when fetching data and there is no data available
+
+        @game = Game.new(diff_id:params[:diff_id],data_id:@data.id,guesses:"",chances:8,pinpoint:@pin_point)
+        @game.save
+     
+        @session = current_user.seshes.new
+        @session.game_id = @game.id
+        @session.status = "ongoing"
+        @session.save
+        render json: {status: 'SUCCESS', message:'Session created', data:@data, game:@game}, status: :ok
     end
 
     private
