@@ -1,4 +1,5 @@
 class AuthController < Clearance::BaseController
+    before_action :authenticate_via_token, only: [:getUser,:destroy ]
     skip_before_action :verify_authenticity_token
     def signup
         @user = User.new(params.permit(:email,:password))
@@ -22,7 +23,14 @@ class AuthController < Clearance::BaseController
     end
 
     def destroy
-        sign_out
+
+        @token = current_user.reset_remember_token!
+        render json: {status: 'SUCCESS', message:'Logged out', token:@token}, status: :ok 
+    end
+
+    def getUser
+        
+        render json: {status: 'SUCCESS', message:'User found', user:current_user}, status: :ok 
     end
 
 end

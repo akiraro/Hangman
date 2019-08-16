@@ -3,7 +3,7 @@ include GameHelper
 
 class GameController < ApplicationController
     before_action :require_login, only: [:new,:show,:edit]
-    before_action :authenticate_via_token, only: [:rnedit]
+    before_action :authenticate_via_token, only: [:rnedit, :getList]
     skip_before_action :verify_authenticity_token
 
     def new
@@ -41,6 +41,18 @@ class GameController < ApplicationController
 
     def update
     
+    end
+
+    def getList
+        @seshs = current_user.seshes
+        @games = Game.where(id: @seshs.map{ |sesh| sesh.game_id })
+        render json: {status: 'SUCCESS', message:'Game list', game:@games}, status: :ok
+    end
+
+    def getData
+        @data = Store.find_by(id:params[:id])
+        render json: {status: 'SUCCESS', message:'Data of pinpoint', data:@data}, status: :ok
+
     end
 
 end
